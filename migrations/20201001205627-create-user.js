@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      imageURL: {
+      imageUrl: {
         type: Sequelize.STRING,
       },
       createdAt: {
