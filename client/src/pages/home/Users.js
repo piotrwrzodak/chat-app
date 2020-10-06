@@ -55,7 +55,13 @@ export default function Users() {
             dispatch({ type: 'SET_SELECTED_USER', payload: user.username })
           }
         >
-          <Image src={user.imageUrl} className="user-img" />
+          <Image
+            src={
+              user.imageUrl ||
+              'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+            }
+            className="user-img"
+          />
           <div className="d-none d-md-block ml-2">
             <p className="text-success m-0">{user.username}</p>
             <p className="font-weight-light m-0">
