@@ -15,6 +15,14 @@ module.exports = gql`
     from: String!
     to: String!
     createdAt: String!
+    reactions: [Reaction]
+  }
+  type Reaction {
+    uuid: String!
+    content: String!
+    createdAt: String!
+    message: Message!
+    user: User!
   }
   type Query {
     getUsers: [User]!
@@ -29,8 +37,10 @@ module.exports = gql`
       confirmPassword: String!
     ): User!
     sendMessage(content: String!, to: String!): Message!
+    reactToMessage(uuid: String!, content: String!): Reaction!
   }
   type Subscription {
     newMessage: Message!
+    newReaction: Reaction!
   }
 `;

@@ -21,8 +21,8 @@ body {
 }
 
 .messages-box {
-  height: 500px;
-  overflow-x: hidden;
+  height: 70vh;
+  overflow-y: scroll;
 
   scrollbar-width: none;
 
@@ -34,7 +34,7 @@ body {
 .user-img {
   width: 50px;
   height: 50px;
-  object-fit: 'cover';
+  object-fit: cover;
   border-radius: 50%;
 }
 
@@ -46,4 +46,33 @@ body {
   color: rgba(0, 0, 0, 0.5);
   text-align: center;
   margin-bottom: 0.5rem;
+}
+
+.react-button-popover {
+  height: 36px;
+}
+
+.react-icon-button {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 1rem;
+  transition: 0.25s;
+
+  &:hover {
+    text-decoration: none;
+    font-size: 1.3rem;
+  }
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
+.reactions-div {
+  position: absolute;
+  right: -10px;
+  bottom: -25px;
+  font-size: 0.9rem;
 }

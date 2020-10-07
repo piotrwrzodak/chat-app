@@ -18,7 +18,9 @@ module.exports = {
         });
 
         const allUserMessages = await Message.findAll({
-          where: { [Op.or]: [{ from: user.username }, { to: user.username }] },
+          where: {
+            [Op.or]: [{ from: user.username }, { to: user.username }],
+          },
           order: [['createdAt', 'DESC']],
         });
 
@@ -37,8 +39,8 @@ module.exports = {
       }
     },
     login: async (_, args) => {
-      let errors = {};
       const { username, password } = args;
+      let errors = {};
 
       try {
         if (username.trim() === '')
@@ -49,7 +51,9 @@ module.exports = {
           throw new UserInputError('bad input', { errors });
         }
 
-        const user = await User.findOne({ where: { username } });
+        const user = await User.findOne({
+          where: { username },
+        });
 
         if (!user) {
           errors.username = 'user not found';
@@ -63,17 +67,12 @@ module.exports = {
           throw new UserInputError('password is incorrect', { errors });
         }
 
-        const token = jwt.sign(
-          {
-            username,
-          },
-          JWT_SECRET,
-          { expiresIn: '1h' }
-        );
+        const token = jwt.sign({ username }, JWT_SECRET, {
+          expiresIn: 60 * 60,
+        });
 
         return {
           ...user.toJSON(),
-          createdAt: user.createdAt.toISOString(),
           token,
         };
       } catch (err) {
@@ -127,8 +126,7 @@ module.exports = {
         console.log(err);
         if (err.name === 'SequelizeUniqueConstraintError') {
           err.errors.forEach(
-            (e) =>
-              (errors[e.path] = ` ${e.path.split('.')[1]} is already taken`)
+            (e) => (errors[e.path] = `${e.path} is already taken`)
           );
         } else if (err.name === 'SequelizeValidationError') {
           err.errors.forEach((e) => (errors[e.path] = e.message));
